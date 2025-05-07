@@ -6,17 +6,21 @@ export default function LoginForm({ onLogin }) {
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await login(username, password);
-      localStorage.setItem("access", res.data.access);
-      onLogin(username);
-    } catch {
-      alert("Login failed");
-    }
-  };
+  e.preventDefault();
+  console.log("Trying login with:", username, password);  // DEBUG
 
-  return (
+  try {
+    const res = await login(username, password);
+    console.log("JWT response:", res.data);               // DEBUG
+
+    localStorage.setItem("access", res.data.access);
+    onLogin(username);
+  } catch (e) {
+    console.log("Login failed:", e.response?.data || e.message);
+    alert("Login failed");
+  }
+};
+return (
     <form onSubmit={handleLogin}>
       <h2>Login</h2>
       <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
