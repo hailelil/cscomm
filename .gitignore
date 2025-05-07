@@ -1,0 +1,4 @@
+venv/
+cscomm-frontend/node_modules/
+*.pyc
+*.sqlite3
